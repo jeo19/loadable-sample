@@ -1,21 +1,23 @@
 import React, { Component } from "react";
+import withSplitting from "./withSplitting";
+
+const SplitMe = withSplitting(() => import("./SplitMe"));
+
 class App extends Component {
   state = {
-    SplitMe: null
+    visible: false
   };
   handleClick = () => {
-    import("./SplitMe").then(({ default: SplitMe }) => {
-      this.setState({
-        SplitMe
-      });
+    this.setState({
+      visible: true
     });
   };
   render() {
-    const { SplitMe } = this.state;
+    const { visible } = this.state;
     return (
       <div>
-        <button onClick={this.handleClick}>Click me</button>
-        {SplitMe && <SplitMe />}
+        <button onClick={this.handleClick}>Click Me</button>
+        {visible && <SplitMe />}
       </div>
     );
   }
